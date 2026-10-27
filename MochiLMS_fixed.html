@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MochiLMS | Góc học tập của bạn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+:root{--bg:#fff5f5;--side:#ffe3e3;--card:#fff;--text:#4a4a4a;--pink:#ff8e9e;--pink-dark:#ff5e7e;--yellow:#fff39e;--border:#ffd1d1;--shadow:0 6px 0 #ffd1d1;--muted:#8a6e73;--green:#d8ffe8;--red:#ffe0e0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-height:100vh}button,input,textarea,select{font:inherit}button{border:3px solid var(--border);border-radius:14px;padding:10px 18px;background:var(--yellow);font-weight:800;cursor:pointer;box-shadow:0 3px 0 var(--border);transition:.15s}button:hover{transform:translateY(-1px)}button:active{transform:translateY(1px);box-shadow:none}button.primary{background:var(--pink);border-color:var(--pink-dark);color:white;box-shadow:0 3px 0 #d15366}button.danger{background:#ffb3b3;border-color:#ff8e9e}button.small{padding:5px 10px;font-size:.9rem}input,textarea,select{width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:12px;background:#fffbfb;color:var(--text);margin:5px 0 12px;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--pink)}textarea{resize:vertical}a{color:var(--pink-dark);overflow-wrap:anywhere}h1,h2,h3{margin-top:0}h1{font-family:Comfortaa,cursive;color:var(--pink-dark);font-size:clamp(1.6rem,3vw,2.3rem)}h2{font-size:1.2rem}p{line-height:1.55}.muted{color:var(--muted);font-size:.92rem}.layout{display:flex;min-height:100vh}.sidebar{width:265px;flex:0 0 265px;background:var(--side);border-right:4px solid var(--border);padding:25px 18px;display:flex;flex-direction:column;gap:20px}.brand{text-align:center;padding:8px 0 18px}.brand-name{font-family:Comfortaa,cursive;color:var(--pink-dark);font-size:1.55rem;font-weight:800}.brand-author{color:var(--muted);font-size:.9rem;margin-top:7px}.menu{list-style:none;padding:0;margin:0;display:grid;gap:9px}.menu button{width:100%;text-align:left;background:transparent;border-color:transparent;box-shadow:none;padding:13px 14px}.menu button.active,.menu button:hover{background:white;border-color:var(--border)}.sidebar .reset{margin-top:auto}.main{flex:1;min-width:0;padding:32px;overflow:auto}.tab{display:none}.tab.active{display:block}.card{background:var(--card);border:3px solid var(--border);border-radius:22px;box-shadow:var(--shadow);padding:23px;margin-bottom:26px;min-width:0}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.stat{text-align:center;background:#fff;border:2px solid var(--border);border-radius:16px;padding:16px 8px}.stat strong{display:block;color:var(--pink-dark);font-size:1.8rem;margin-top:4px;overflow-wrap:anywhere}.progress{height:20px;background:#fff0f0;border:2px solid var(--border);border-radius:20px;overflow:hidden;margin-top:8px}.progress-fill{height:100%;width:0;background:var(--pink);transition:width .3s}.row{display:flex;gap:10px;align-items:center}.row>*{min-width:0}.row .grow{flex:1}.todo,.bookmark,.lesson-card{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:11px 13px;background:#fffbfb;border:2px solid var(--border);border-radius:12px;margin:8px 0;overflow-wrap:anywhere}.todo .todo-text{flex:1;cursor:pointer}.todo.done{opacity:.65;background:#f3f3f3}.todo.done .todo-text{text-decoration:line-through}.list{max-height:240px;overflow:auto}.zone{border:3px dashed var(--border);border-radius:16px;padding:22px;text-align:center;background:#fffbfb;cursor:pointer;margin:12px 0}.zone:hover{border-color:var(--pink)}#typing-area{font-size:1.12rem;line-height:2;border:2px solid var(--border);padding:15px;border-radius:14px;background:#fff;margin:12px 0;overflow-wrap:anywhere}.word-box{display:inline-block;padding:1px 5px;margin:2px;border-radius:5px;background:#eee}.word-box.current{background:var(--yellow);outline:2px solid #e6c64c}.word-box.correct{background:#ceffe4;color:#16834b}.word-box.wrong{background:#ffd4d4;color:#b42323}#feedback{display:none;padding:15px;border-radius:12px;margin-top:15px}.feedback-good{background:#e3ffe6;border:2px solid #7fe291}.feedback-info{background:#fff5d7;border:2px solid #eed37a}.pdf-frame{height:420px;border:2px solid var(--border);border-radius:12px;overflow:hidden;background:#eee}.pdf-frame iframe{width:100%;height:100%;border:0}.notice{padding:12px 14px;border-radius:12px;background:#fff7dc;margin:10px 0;font-size:.92rem}.empty{color:var(--muted);padding:8px 0}.splash{position:fixed;inset:0;z-index:10;background:var(--side);display:flex;align-items:center;justify-content:center;text-align:center;transition:opacity .5s}.splash.hide{opacity:0;pointer-events:none}.splash-inner{padding:20px;animation:pop .7s ease}.splash-logo{font-size:4rem}.splash h1{font-size:clamp(2.4rem,7vw,4rem);margin:12px}.splash p{color:var(--muted)}@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.topline h1{margin-bottom:22px}.hidden{display:none!important}
+@media(max-width:950px){.layout{display:block}.sidebar{width:100%;border-right:0;border-bottom:4px solid var(--border);padding:14px;gap:10px}.brand{padding:4px}.menu{grid-template-columns:repeat(3,minmax(0,1fr))}.menu button{text-align:center;padding:10px 5px;font-size:.9rem}.sidebar .reset{margin-top:0}.main{padding:22px}.grid2{grid-template-columns:1fr}}
+@media(max-width:560px){.main{padding:14px}.card{padding:16px}.grid3{grid-template-columns:1fr}.row.stack-mobile{display:block}.menu{gap:4px}.menu button{font-size:.78rem}.pdf-frame{height:300px}}
+</style>
+</head>
+<body>
+<div class="splash" id="splash">
+  <div class="splash-inner"><div class="splash-logo">📚✨</div><h1>MochiLMS</h1><p>Góc học tập nhỏ, tiến bộ mỗi ngày</p><strong>Have fun studying! 💕</strong></div>
+</div>
+<div class="layout">
+<aside class="sidebar">
+  <div>
+    <div class="brand"><div class="brand-name">🌸 MochiLMS</div><div class="brand-author">Designed by Trí Lê</div></div>
+    <nav class="menu" aria-label="Điều hướng">
+      <button class="active" data-tab="home">🏠 Trang chủ</button>
+      <button data-tab="tools">🛠️ Công cụ học tập</button>
+      <button data-tab="memory">🧠 Phòng luyện tập</button>
+    </nav>
+  </div>
+  <button class="danger reset" id="reset-all">🔄 Reset toàn bộ dữ liệu</button>
+</aside>
+<main class="main">
+<section id="tab-home" class="tab active">
+  <div class="topline"><h1>Xin chào, Trí Lê! 👋</h1><button id="replay-intro">🎬 Xem lại intro</button></div>
+  <div class="grid2">
+    <div class="card" style="background:#fff0f5">
+      <h2>🏆 Tiến trình học tập</h2>
+      <div class="grid3">
+        <div class="stat">Cấp độ<strong id="user-level">1</strong></div>
+        <div class="stat">Chuỗi ngày<strong id="user-streak">0</strong></div>
+        <div class="stat">Tổng XP<strong id="user-total-xp">0</strong></div>
+      </div>
+      <p><strong>Kinh nghiệm:</strong> <span id="xp-text">0/100 XP</span></p>
+      <div class="progress"><div id="xp-bar" class="progress-fill"></div></div>
+    </div>
+    <div class="card" style="background:#f0fff9">
+      <h2>⏰ Đếm ngược ngày thi</h2>
+      <label for="exam-name">Tên sự kiện</label><input id="exam-name" placeholder="Ví dụ: Thi học kỳ I, IELTS...">
+      <label for="exam-date">Ngày và giờ</label><input type="datetime-local" id="exam-date">
+      <button class="primary" id="save-countdown">Cập nhật đồng hồ</button>
+      <button id="clear-countdown">Xóa ngày thi</button>
+      <div id="countdown-display" class="notice">Chưa cài đặt ngày thi 📅</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h2>📝 Nhiệm vụ hôm nay</h2>
+      <form id="todo-form" class="row"><input class="grow" id="todo-input" placeholder="Thêm việc cần làm..." aria-label="Việc cần làm"><button class="primary" type="submit">Thêm</button></form>
+      <div id="todo-list" class="list"></div>
+    </div>
+    <div class="card" style="background:#fffff0">
+      <h2>📊 Biểu đồ điểm</h2>
+      <form id="score-form" class="row"><input class="grow" id="chart-score" type="number" placeholder="Điểm 0-10" min="0" max="10" step="0.1" aria-label="Điểm số"><button type="submit">Thêm điểm</button></form>
+      <div style="height:220px"><canvas id="progressChart" aria-label="Biểu đồ tiến bộ"></canvas></div>
+    </div>
+  </div>
+</section>
+<section id="tab-tools" class="tab">
+  <h1>🛠️ Bộ công cụ học tập</h1>
+  <div class="grid2">
+    <div class="card"><h2>📌 Ghi chú nhanh</h2><p class="muted">Ghi chú được lưu tự động trên trình duyệt này.</p><textarea id="scratchpad-area" rows="7" placeholder="Ghi chú của bạn..."></textarea><span id="scratch-status" class="muted">Đã sẵn sàng</span></div>
+    <div class="card"><h2>🔗 Kho lưu trữ tài liệu</h2>
+      <form id="bookmark-form"><label for="bookmark-title">Tên tài liệu</label><input id="bookmark-title" required placeholder="Tên tài liệu / trang web"><label for="bookmark-url">Đường dẫn</label><input id="bookmark-url" type="url" required placeholder="https://..."><button class="primary" type="submit">Lưu liên kết</button></form>
+      <div id="bookmark-list" class="list"></div>
+    </div>
+  </div>
+  <div class="card"><h2>📖 Trình xem PDF từ đường dẫn</h2><form id="pdf-url-form" class="row"><input id="pdf-url-input" class="grow" type="url" placeholder="https://example.com/tailieu.pdf" aria-label="Đường dẫn PDF"><button class="primary" type="submit">Mở file</button></form><p class="muted">Một số trang web chặn nhúng PDF. Nếu không hiển thị, hãy mở liên kết trong tab mới.</p><div class="pdf-frame"><iframe id="pdf-iframe" title="Trình xem PDF" src="about:blank" loading="lazy"></iframe></div></div>
+</section>
+<section id="tab-memory" class="tab">
+  <h1>🧠 Phòng luyện tập</h1>
+  <div class="grid2">
+    <div class="card" style="background:#fff5ff">
+      <h2>📂 Nạp tài liệu PDF hoặc tạo bài theo chủ đề</h2>
+      <p class="muted">PDF.js sẽ thử trích xuất văn bản từ PDF. File scan dạng ảnh có thể không trích xuất được chữ.</p>
+      <label class="zone" for="pdf-file-picker">📁 Chọn file PDF từ thiết bị</label><input type="file" id="pdf-file-picker" accept="application/pdf,.pdf">
+      <div id="pdf-status" class="notice hidden"></div>
+      <hr style="border:0;border-top:2px solid var(--border);margin:20px 0">
+      <label for="ai-topic-input">Chủ đề hoặc nội dung bài học</label><input id="ai-topic-input" placeholder="Ví dụ: Quang hợp ở thực vật">
+      <label for="lesson-text-input">Nội dung cần ghi nhớ</label><textarea id="lesson-text-input" rows="5" placeholder="Nhập nội dung bài học ở đây. Có thể để trống để dùng nội dung mẫu theo chủ đề."></textarea>
+      <button class="primary" id="create-lesson">Tạo bài luyện tập</button>
+      <div class="notice">Lưu ý: bản này tạo bài học từ nội dung bạn cung cấp, không gọi dịch vụ AI bên ngoài. Muốn dùng AI thật cần tích hợp API an toàn qua backend.</div>
+    </div>
+    <div class="card">
+      <h2>🎯 Đấu trường học thuộc lòng</h2>
+      <label for="lesson-selector">Chọn bài học</label><select id="lesson-selector"><option value="">-- Chưa có bài học nào --</option></select>
+      <div id="lesson-actions" class="row hidden"><button id="delete-lesson" class="danger small">Xóa bài học này</button><button id="reset-lesson" class="small">Làm lại</button></div>
+      <div id="typing-container" class="hidden">
+        <p class="muted">Gõ đúng từ hiện tại, sau đó nhấn dấu cách để chuyển sang từ tiếp theo.</p>
+        <div id="typing-area"></div>
+        <input id="typing-input" autocomplete="off" placeholder="Gõ từ tiếp theo..." aria-label="Gõ từ tiếp theo">
+        <div class="row stack-mobile"><button id="hint-btn">💡 Xin gợi ý</button><button id="restart-typing">🔄 Làm lại từ đầu</button></div>
+        <div id="feedback"><h3 id="feedback-title"></h3><p id="feedback-desc"></p></div>
+      </div>
+      <div id="no-lesson" class="empty">Tạo hoặc chọn một bài học để bắt đầu luyện tập.</div>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+<script>
+(() => {
+'use strict';
+const STORAGE_KEY = 'mochi_lms_state_v2';
+const SCRATCH_KEY = 'mochi_lms_scratchpad_v2';
+const $ = id => document.getElementById(id);
+const defaultState = () => ({level:1,xp:0,streak:0,totalXp:0,countdown:null,todos:[],bookmarks:[],scores:[],lessons:[],lastStudyDate:null});
+let state = defaultState();
+let chart = null;
+let currentWords = [];
+let currentWordIndex = 0;
+let hintCount = 0;
+let wrongAttempts = 0;
+let countdownInterval = null;
+let currentLessonIndex = -1;
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    const base = defaultState();
+    return {
+      ...base, ...parsed,
+      level: Number.isFinite(parsed.level) && parsed.level >= 1 ? parsed.level : 1,
+      xp: Number.isFinite(parsed.xp) && parsed.xp >= 0 ? parsed.xp : 0,
+      totalXp: Number.isFinite(parsed.totalXp) && parsed.totalXp >= 0 ? parsed.totalXp : 0,
+      todos: Array.isArray(parsed.todos) ? parsed.todos : [],
+      bookmarks: Array.isArray(parsed.bookmarks) ? parsed.bookmarks : [],
+      scores: Array.isArray(parsed.scores) ? parsed.scores.filter(n => Number.isFinite(n) && n >= 0 && n <= 10) : [],
+      lessons: Array.isArray(parsed.lessons) ? parsed.lessons.filter(l => l && typeof l.title === 'string' && typeof l.text === 'string') : []
+    };
+  } catch (err) {
+    console.error('Không đọc được dữ liệu MochiLMS:', err);
+    alert('Dữ liệu lưu cũ bị lỗi. Ứng dụng sẽ mở với dữ liệu mới; nếu cần, hãy xuất/khôi phục dữ liệu trước khi reset.');
+    return defaultState();
+  }
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch (err) { console.error(err); alert('Không thể lưu dữ liệu. Có thể trình duyệt đã hết dung lượng.'); }
+}
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function safeHttpUrl(value) {
+  try { const u = new URL(value); return ['http:','https:'].includes(u.protocol) ? u.href : null; }
+  catch { return null; }
+}
+function updateUI() {
+  $('user-level').textContent = state.level;
+  $('user-streak').textContent = `${state.streak} ngày`;
+  $('user-total-xp').textContent = `${state.totalXp} XP`;
+  const needed = state.level * 100;
+  $('xp-text').textContent = `${state.xp}/${needed} XP`;
+  $('xp-bar').style.width = `${Math.min(100, state.xp / needed * 100)}%`;
+  renderTodos(); renderBookmarks(); renderLessonSelector();
+  if (state.countdown) { $('exam-name').value = state.countdown.name || ''; $('exam-date').value = state.countdown.date || ''; }
+}
+function addXp(amount) {
+  state.xp += amount; state.totalXp += amount;
+  let levelUps = 0;
+  while (state.xp >= state.level * 100) { state.xp -= state.level * 100; state.level++; levelUps++; }
+  if (levelUps) alert(`🎉 Lên cấp ${state.level}! Bạn vừa tăng ${levelUps} cấp.`);
+  markStudyDay(); saveState(); updateUI();
+}
+function markStudyDay() {
+  const today = new Date().toLocaleDateString('sv-SE');
+  if (state.lastStudyDate !== today) {
+    if (state.lastStudyDate) {
+      const prev = new Date(`${state.lastStudyDate}T12:00:00`);
+      const now = new Date(`${today}T12:00:00`);
+      const gap = Math.round((now - prev) / 86400000);
+      state.streak = gap === 1 ? state.streak + 1 : 1;
+    } else state.streak = 1;
+    state.lastStudyDate = today;
+  }
+}
+function renderTodos() {
+  const box = $('todo-list'); box.replaceChildren();
+  if (!state.todos.length) { box.innerHTML = '<p class="empty">Hôm nay chưa có nhiệm vụ nào.</p>'; return; }
+  state.todos.forEach((todo, i) => {
+    const row = document.createElement('div'); row.className = `todo${todo.done ? ' done' : ''}`;
+    const text = document.createElement('span'); text.className = 'todo-text'; text.textContent = `✨ ${todo.text}`; text.tabIndex = 0; text.setAttribute('role','button'); text.setAttribute('aria-label','Đổi trạng thái nhiệm vụ');
+    const toggle = () => { if (!state.todos[i]) return; state.todos[i].done = !state.todos[i].done; if (state.todos[i].done) addXp(15); else saveState(); renderTodos(); };
+    text.addEventListener('click', toggle); text.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }});
+    const del = document.createElement('button'); del.className = 'danger small'; del.textContent = 'Xóa'; del.addEventListener('click', () => { state.todos.splice(i,1); saveState(); renderTodos(); });
+    row.append(text, del); box.append(row);
+  });
+}
+function renderBookmarks() {
+  const box = $('bookmark-list'); box.replaceChildren();
+  if (!state.bookmarks.length) { box.innerHTML = '<p class="empty">Kho lưu trữ đang trống.</p>'; return; }
+  state.bookmarks.forEach((b,i) => {
+    const row = document.createElement('div'); row.className = 'bookmark';
+    const link = document.createElement('a'); link.href = b.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = `📂 ${b.title}`;
+    const del = document.createElement('button'); del.className = 'danger small'; del.textContent = 'Xóa'; del.addEventListener('click', () => { state.bookmarks.splice(i,1); saveState(); renderBookmarks(); });
+    row.append(link,del); box.append(row);
+  });
+}
+function renderLessonSelector() {
+  const select = $('lesson-selector'); const old = select.value;
+  select.replaceChildren(new Option('-- Chọn bài học --',''));
+  state.lessons.forEach((lesson,i) => select.add(new Option(lesson.title,String(i))));
+  if (old !== '' && Number(old) < state.lessons.length) select.value = old;
+}
+function createLesson(title, text) {
+  title = String(title || '').trim(); text = String(text || '').trim();
+  if (!title) title = 'Bài học mới';
+  if (!text) { alert('Hãy nhập nội dung bài học trước nhé.'); return; }
+  state.lessons.push({title: title.slice(0,160), text: text.slice(0,50000)});
+  saveState(); updateUI(); $('lesson-selector').value = String(state.lessons.length - 1); loadSelectedLesson();
+  $('pdf-status').classList.add('hidden');
+  alert('Đã thêm bài học vào phòng luyện tập!');
+}
+function loadSelectedLesson() {
+  const val = $('lesson-selector').value;
+  currentLessonIndex = val === '' ? -1 : Number(val);
+  const active = currentLessonIndex >= 0 && state.lessons[currentLessonIndex];
+  $('typing-container').classList.toggle('hidden', !active);
+  $('lesson-actions').classList.toggle('hidden', !active);
+  $('no-lesson').classList.toggle('hidden', !!active);
+  $('feedback').style.display = 'none';
+  if (!active) { currentWords = []; $('typing-area').replaceChildren(); return; }
+  currentWords = state.lessons[currentLessonIndex].text.trim().split(/\s+/).filter(Boolean);
+  resetTyping(false);
+}
+function renderTypingArea() {
+  const area = $('typing-area'); area.replaceChildren();
+  currentWords.forEach((word,index) => {
+    const span = document.createElement('span'); span.id = `word-${index}`; span.className = 'word-box';
+    if (index < currentWordIndex) span.classList.add('correct');
+    else if (index === currentWordIndex) span.classList.add('current');
+    span.textContent = word; area.append(span, document.createTextNode(' '));
+  });
+}
+function resetTyping(focus = true) {
+  currentWordIndex = 0; hintCount = 0; wrongAttempts = 0;
+  $('typing-input').value = ''; $('typing-input').disabled = false; $('feedback').style.display = 'none';
+  updateHintButtonText(); renderTypingArea();
+  if (focus) $('typing-input').focus();
+}
+function checkTyping() {
+  const input = $('typing-input');
+  if (input.disabled || currentWordIndex >= currentWords.length) return;
+  const typed = input.value;
+  if (!typed.endsWith(' ')) return;
+  const clean = typed.trim();
+  const target = currentWords[currentWordIndex];
+  if (clean === target) {
+    currentWordIndex++; hintCount = 0; wrongAttempts = 0; input.value = '';
+    if (currentWordIndex >= currentWords.length) finishLesson();
+    else { renderTypingArea(); updateHintButtonText(); }
+  } else {
+    wrongAttempts++;
+    const span = $(`word-${currentWordIndex}`);
+    if (span) { span.classList.add('wrong'); setTimeout(() => span.classList.remove('wrong'), 450); }
+    input.value = clean ? clean + ' ' : '';
+  }
+}
+function updateHintButtonText() {
+  const remaining = Math.max(0, 3 - hintCount);
+  $('hint-btn').textContent = remaining ? `💡 Xin gợi ý (còn ${remaining} lượt)` : '💡 Điền từ hiện tại';
+}
+function triggerHint() {
+  if (currentWordIndex >= currentWords.length) return;
+  const word = currentWords[currentWordIndex];
+  hintCount++;
+  if (hintCount === 1) alert(`Gợi ý: Từ này có ${word.length} ký tự.`);
+  else if (hintCount === 2) alert(`Gợi ý: Chữ đầu tiên là "${word.charAt(0)}".`);
+  else if (hintCount === 3) alert(`Gợi ý: Hai ký tự đầu là "${word.slice(0,2)}".`);
+  else { $('typing-input').value = word + ' '; checkTyping(); return; }
+  updateHintButtonText();
+}
+function finishLesson() {
+  $('typing-input').disabled = true; renderTypingArea(); markStudyDay();
+  const feedback = $('feedback'); feedback.className = 'feedback-good'; feedback.style.display = 'block';
+  $('feedback-title').textContent = '🎉 Hoàn thành bài học!';
+  $('feedback-desc').textContent = `Bạn đã gõ đúng toàn bộ ${currentWords.length} từ. Cộng 40 XP vào thành tích học tập.`;
+  addXp(40); saveState();
+}
+function initChart() {
+  const canvas = $('progressChart');
+  if (!window.Chart) { canvas.parentElement.innerHTML = '<p class="notice">Không tải được Chart.js. Hãy kiểm tra kết nối mạng.</p>'; return; }
+  chart = new Chart(canvas.getContext('2d'), {type:'line',data:{labels:state.scores.map((_,i)=>`Lần ${i+1}`),datasets:[{label:'Điểm số',data:state.scores,borderColor:'#ff8e9e',backgroundColor:'rgba(255,142,158,.2)',borderWidth:3,tension:.25,fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:0,max:10}}}});
+}
+function refreshChart() {
+  if (!chart) return;
+  chart.data.labels = state.scores.map((_,i)=>`Lần ${i+1}`);
+  chart.data.datasets[0].data = state.scores; chart.update();
+}
+function updateCountdown() {
+  if (!state.countdown) { $('countdown-display').textContent = 'Chưa cài đặt ngày thi 📅'; return; }
+  const target = new Date(state.countdown.date).getTime();
+  if (!Number.isFinite(target)) { $('countdown-display').textContent = 'Ngày thi không hợp lệ.'; return; }
+  const diff = target - Date.now();
+  if (diff <= 0) { $('countdown-display').textContent = `🎉 Đã đến lúc: ${state.countdown.name}!`; if (countdownInterval) clearInterval(countdownInterval); return; }
+  const days = Math.floor(diff / 86400000), hours = Math.floor(diff % 86400000 / 3600000), minutes = Math.floor(diff % 3600000 / 60000), seconds = Math.floor(diff % 60000 / 1000);
+  $('countdown-display').textContent = `${state.countdown.name} · Còn ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+}
+function startCountdown() {
+  if (countdownInterval) clearInterval(countdownInterval);
+  updateCountdown(); if (state.countdown) countdownInterval = setInterval(updateCountdown,1000);
+}
+async function extractPdf(file) {
+  const status = $('pdf-status'); status.classList.remove('hidden'); status.textContent = 'Đang đọc văn bản trong PDF...';
+  if (!window.pdfjsLib) { status.textContent = 'Không tải được PDF.js. Hãy kiểm tra mạng hoặc nhập nội dung thủ công.'; return; }
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  try {
+    const data = new Uint8Array(await file.arrayBuffer());
+    const pdf = await window.pdfjsLib.getDocument({data}).promise;
+    let pages = [];
+    for (let i=1; i<=pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      pages.push(content.items.map(item => item.str).join(' '));
+    }
+    const text = pages.join('\n').replace(/[ \t]+/g,' ').trim();
+    if (!text) { status.textContent = 'Không trích xuất được chữ. Có thể PDF là bản scan ảnh; hãy nhập nội dung thủ công.'; return; }
+    $('ai-topic-input').value = file.name.replace(/\.pdf$/i,'');
+    $('lesson-text-input').value = text.slice(0,50000);
+    status.textContent = `Đã trích xuất văn bản từ ${pdf.numPages} trang. Kiểm tra nội dung rồi bấm “Tạo bài luyện tập”.`;
+  } catch (err) {
+    console.error(err); status.textContent = 'Không đọc được PDF này. Hãy thử file khác hoặc nhập nội dung thủ công.';
+  }
+}
+document.querySelectorAll('.menu button[data-tab]').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('.menu button').forEach(b => b.classList.toggle('active', b === btn));
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab.id === `tab-${btn.dataset.tab}`));
+}));
+$('todo-form').addEventListener('submit', e => {
+  e.preventDefault(); const input = $('todo-input'); const text = input.value.trim(); if (!text) return;
+  state.todos.push({text,done:false}); input.value=''; saveState(); renderTodos();
+});
+$('score-form').addEventListener('submit', e => {
+  e.preventDefault(); const input = $('chart-score'); const score = Number(input.value);
+  if (input.value.trim()==='' || !Number.isFinite(score) || score<0 || score>10) { alert('Nhập điểm từ 0 đến 10 nhé.'); return; }
+  state.scores.push(score); saveState(); refreshChart(); input.value=''; addXp(10);
+});
+$('scratchpad-area').value = localStorage.getItem(SCRATCH_KEY) || '';
+$('scratchpad-area').addEventListener('input', () => {
+  try { localStorage.setItem(SCRATCH_KEY, $('scratchpad-area').value); $('scratch-status').textContent = 'Đã lưu tự động'; }
+  catch { $('scratch-status').textContent = 'Không lưu được, hãy kiểm tra dung lượng trình duyệt.'; }
+});
+$('bookmark-form').addEventListener('submit', e => {
+  e.preventDefault(); const title = $('bookmark-title').value.trim(); const url = safeHttpUrl($('bookmark-url').value.trim());
+  if (!title || !url) { alert('Vui lòng nhập tên và URL bắt đầu bằng http:// hoặc https://.'); return; }
+  state.bookmarks.push({title:title.slice(0,200),url}); saveState(); renderBookmarks(); $('bookmark-title').value=''; $('bookmark-url').value='';
+});
+$('pdf-url-form').addEventListener('submit', e => {
+  e.preventDefault(); const url = safeHttpUrl($('pdf-url-input').value.trim());
+  if (!url) { alert('Hãy nhập URL hợp lệ bắt đầu bằng http:// hoặc https://.'); return; }
+  $('pdf-iframe').src = url;
+});
+$('pdf-file-picker').addEventListener('change', e => { const file = e.target.files && e.target.files[0]; if (file) extractPdf(file); });
+$('create-lesson').addEventListener('click', () => {
+  const topic = $('ai-topic-input').value.trim();
+  const text = $('lesson-text-input').value.trim();
+  if (!text) {
+    if (!topic) { alert('Nhập chủ đề hoặc nội dung bài học nhé.'); return; }
+    createLesson(topic, `Chủ đề: ${topic}. Hãy bổ sung nội dung bài học chi tiết vào ô nội dung rồi tạo lại để luyện ghi nhớ.`);
+    return;
+  }
+  createLesson(topic || 'Bài học mới', text);
+});
+$('lesson-selector').addEventListener('change', loadSelectedLesson);
+$('typing-input').addEventListener('input', checkTyping);
+$('hint-btn').addEventListener('click', triggerHint);
+$('restart-typing').addEventListener('click', () => resetTyping());
+$('reset-lesson').addEventListener('click', () => resetTyping());
+$('delete-lesson').addEventListener('click', () => {
+  if (currentLessonIndex < 0 || !confirm('Xóa bài học này?')) return;
+  state.lessons.splice(currentLessonIndex,1); saveState(); currentLessonIndex=-1; updateUI(); loadSelectedLesson();
+});
+$('save-countdown').addEventListener('click', () => {
+  const name = $('exam-name').value.trim(), date = $('exam-date').value;
+  if (!name || !date) { alert('Vui lòng nhập tên sự kiện và ngày giờ.'); return; }
+  if (new Date(date).getTime() <= Date.now()) { alert('Hãy chọn thời điểm trong tương lai nhé.'); return; }
+  state.countdown = {name,date}; saveState(); startCountdown();
+});
+$('clear-countdown').addEventListener('click', () => { state.countdown=null; $('exam-name').value=''; $('exam-date').value=''; saveState(); startCountdown(); });
+$('reset-all').addEventListener('click', () => {
+  if (!confirm('Xóa toàn bộ dữ liệu MochiLMS đã lưu trên trình duyệt này?')) return;
+  state=defaultState(); localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(SCRATCH_KEY);
+  $('scratchpad-area').value=''; $('exam-name').value=''; $('exam-date').value=''; $('pdf-iframe').src='about:blank';
+  updateUI(); refreshChart(); startCountdown(); loadSelectedLesson(); $('pdf-status').classList.add('hidden');
+});
+function replayIntro() {
+  const splash = $('splash'); splash.classList.remove('hide');
+  setTimeout(() => splash.classList.add('hide'), 2200);
+}
+$('replay-intro').addEventListener('click', replayIntro);
+state = loadState();
+updateUI(); initChart(); startCountdown();
+setTimeout(() => $('splash').classList.add('hide'), 1800);
+})();
+</script>
+</body>
+</html>
